@@ -13,8 +13,13 @@
 
 #include"Shader.h"
 
+#include "io/Keyboard.h"
+#include "io/Mouse.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
+
+glm::mat4 trans = glm::mat4(1.0f);
 
 int main() {
 
@@ -51,6 +56,12 @@ int main() {
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	glfwSetKeyCallback(window, Keyboard::keyCallBack);
+
+	glfwSetCursorPosCallback(window, Mouse::cursorPosCallBack);
+	glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
+	glfwSetScrollCallback(window, Mouse::mouseWheelCallBack);
+
 	Shader shader("assets/vertex_core.glsl", "assets/fragment_core.glsl");
 
 	// vertex array
@@ -76,27 +87,21 @@ int main() {
 	// bind VAO
 	glBindVertexArray(VAO);
 
-	// bid VBO
+	// bind VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	// set attribute pointer
-	//positon
+	// positon
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	//color
+	// color
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 	// set up EBO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
-
-
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	shader.activate();
-	shader.setMat4("transform", trans);
-
+	
 	while (!glfwWindowShouldClose(window)) {
 		// process input
 		processInput(window);
@@ -105,7 +110,6 @@ int main() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 100.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		shader.activate();
 		shader.setMat4("transform", trans);
 
@@ -131,7 +135,14 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 }
 
 void processInput(GLFWwindow* window) {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+	if (Keyboard::key(GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(window, true);
+	}
+
+	if (Keyboard::key(GLFW_KEY_W)) {
+		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 0.0f, 1.0f));
+	}
+	if (Keyboard::key(GLFW_KEY_S)) {
+		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 0.0f, -1.0f));
 	}
 }
