@@ -67,22 +67,54 @@ int main() {
 	// vertex array
 	float vertices[] = {
 		// positions			colors
-		 0.5f,  0.5f, 0.0f,		1.0f, 1.0f, 0.5f,
-		-0.5f,  0.5f, 0.0f,		0.5f, 1.0f, 0.75f,
-		-0.5f, -0.5f, 0.0f,		0.6f, 1.0f, 0.2f,
-		 0.5f, -0.5f, 0.0f,		1.0f, 0.2f, 1.0f
-	};
-	unsigned int indicies[] = {
-		0, 1, 2,	//first triangle
-		2, 3, 0		//second triangle
+		-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
+
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
+
+		-0.5f, -0.5f, -0.5f,  1.0f, 0.5f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.5f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.5f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.5f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  1.0f, 0.5f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  1.0f, 0.5f, 0.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.5f, 0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  0.5f, 0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.5f, 0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.5f, 0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.5f, 0.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.5f, 0.0f, 1.0f
 	};
 
 
 	// VAO, VBO
-	unsigned int VAO, VBO, EBO;
+	unsigned int VAO, VBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
 
 	// bind VAO
 	glBindVertexArray(VAO);
@@ -98,9 +130,8 @@ int main() {
 	// color
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	// set up EBO
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
+
+	glEnable(GL_DEPTH_TEST);
 	
 	while (!glfwWindowShouldClose(window)) {
 		// process input
@@ -108,14 +139,13 @@ int main() {
 
 		// render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		shader.activate();
 		shader.setMat4("transform", trans);
 
 		// draw shapes
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// send new frame to window
 		glfwSwapBuffers(window);
@@ -124,7 +154,6 @@ int main() {
 
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VAO);
-	glDeleteBuffers(1, &EBO);
 
 	glfwTerminate();
 	return 0;
@@ -140,9 +169,15 @@ void processInput(GLFWwindow* window) {
 	}
 
 	if (Keyboard::key(GLFW_KEY_W)) {
-		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 0.0f, 1.0f));
+		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 	if (Keyboard::key(GLFW_KEY_S)) {
-		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 0.0f, -1.0f));
+		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(-1.0f, 0.0f, 0.0f));
+	}
+	if (Keyboard::key(GLFW_KEY_A)) {
+		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+	if (Keyboard::key(GLFW_KEY_D)) {
+		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, -1.0f, 0.0f));
 	}
 }
