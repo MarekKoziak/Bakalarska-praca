@@ -21,6 +21,7 @@ void processInput(GLFWwindow* window);
 
 unsigned int SCR_WIDTH = 800, SCR_HEIGHT = 600; 
 float x, y, z;
+float theta = 45.0f;
 
 
 int main() {
@@ -155,7 +156,7 @@ int main() {
 
 		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
 		view = glm::translate(view, glm::vec3(-x, -y, -z));
-		projecton = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		projecton = glm::perspective(glm::radians(theta), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
 		shader.activate();
 		shader.setMat4("model", model);
@@ -188,16 +189,29 @@ void processInput(GLFWwindow* window) {
 		glfwSetWindowShouldClose(window, true);
 	}
 
-	//if (Keyboard::key(GLFW_KEY_W)) {
-	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(1.0f, 0.0f, 0.0f));
-	//}
-	//if (Keyboard::key(GLFW_KEY_S)) {
-	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(-1.0f, 0.0f, 0.0f));
-	//}
-	//if (Keyboard::key(GLFW_KEY_A)) {
-	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//}
-	//if (Keyboard::key(GLFW_KEY_D)) {
-	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, -1.0f, 0.0f));
-	//}
+	// move camere
+	if (Keyboard::key(GLFW_KEY_D)) {
+		x += 0.001f;
+	}
+	if (Keyboard::key(GLFW_KEY_A)) {
+		x -= 0.001f;
+	}
+	if (Keyboard::key(GLFW_KEY_W)) {
+		y += 0.001f;
+	}
+	if (Keyboard::key(GLFW_KEY_S)) {
+		y -=  0.001f;
+	}
+
+	// zoom camera
+		z += (float) Mouse::getScrollDX();
+		z -= (float) Mouse::getScrollDY();
+
+	// change field of view
+	if (Keyboard::keyWentDown(GLFW_KEY_KP_ADD)) {
+		theta += 5;
+	}
+	if (Keyboard::keyWentDown(GLFW_KEY_KP_SUBTRACT)) {
+		theta -= 5;
+	}
 }
