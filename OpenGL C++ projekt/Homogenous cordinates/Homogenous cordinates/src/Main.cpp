@@ -19,7 +19,9 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
-glm::mat4 trans = glm::mat4(1.0f);
+unsigned int SCR_WIDTH = 800, SCR_HEIGHT = 600; 
+float x, y, z;
+
 
 int main() {
 
@@ -38,7 +40,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COPMPAT, GL_TRUEF);
 #endif
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Title", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Title", NULL, NULL);
 	if (window == NULL) { // window not created
 		std::cout << "Could not create window" << std::endl;
 		glfwTerminate();
@@ -52,7 +54,7 @@ int main() {
 		return -1;
 	}
 
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -133,6 +135,11 @@ int main() {
 
 	glEnable(GL_DEPTH_TEST);
 	
+
+	x = 0.0f;
+	y = 0.0f;
+	z = 3.0f;
+
 	while (!glfwWindowShouldClose(window)) {
 		// process input
 		processInput(window);
@@ -141,8 +148,19 @@ int main() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		// create transformation for screen
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 projecton = glm::mat4(1.0f);
+
+		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
+		view = glm::translate(view, glm::vec3(-x, -y, -z));
+		projecton = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
 		shader.activate();
-		shader.setMat4("transform", trans);
+		shader.setMat4("model", model);
+		shader.setMat4("view", view);
+		shader.setMat4("projection", projecton);
 
 		// draw shapes
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -161,6 +179,8 @@ int main() {
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
+	SCR_WIDTH = width;
+	SCR_HEIGHT = height;
 }
 
 void processInput(GLFWwindow* window) {
@@ -168,16 +188,16 @@ void processInput(GLFWwindow* window) {
 		glfwSetWindowShouldClose(window, true);
 	}
 
-	if (Keyboard::key(GLFW_KEY_W)) {
-		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(1.0f, 0.0f, 0.0f));
-	}
-	if (Keyboard::key(GLFW_KEY_S)) {
-		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(-1.0f, 0.0f, 0.0f));
-	}
-	if (Keyboard::key(GLFW_KEY_A)) {
-		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 1.0f, 0.0f));
-	}
-	if (Keyboard::key(GLFW_KEY_D)) {
-		trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, -1.0f, 0.0f));
-	}
+	//if (Keyboard::key(GLFW_KEY_W)) {
+	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(1.0f, 0.0f, 0.0f));
+	//}
+	//if (Keyboard::key(GLFW_KEY_S)) {
+	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(-1.0f, 0.0f, 0.0f));
+	//}
+	//if (Keyboard::key(GLFW_KEY_A)) {
+	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, 1.0f, 0.0f));
+	//}
+	//if (Keyboard::key(GLFW_KEY_D)) {
+	//	trans = glm::rotate(trans, glm::radians(0.01f), glm::vec3(0.0f, -1.0f, 0.0f));
+	//}
 }
