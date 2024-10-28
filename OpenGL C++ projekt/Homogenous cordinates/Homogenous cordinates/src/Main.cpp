@@ -15,14 +15,16 @@
 
 #include "io/Keyboard.h"
 #include "io/Mouse.h"
+#include "io/Camera.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
+void processInput(GLFWwindow* window, double dt);
 
 unsigned int SCR_WIDTH = 800, SCR_HEIGHT = 600; 
-float x, y, z;
-float theta = 45.0f;
 
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
 
 int main() {
 
@@ -137,13 +139,14 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 	
 
-	x = 0.0f;
-	y = 0.0f;
-	z = 3.0f;
 
 	while (!glfwWindowShouldClose(window)) {
+		double currentTime = glfwGetTime();
+		deltaTime = currentTime - lastFrame;
+		lastFrame = currentTime;
+
 		// process input
-		processInput(window);
+		processInput(window, deltaTime);
 
 		// render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -154,9 +157,9 @@ int main() {
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projecton = glm::mat4(1.0f);
 
-		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
-		view = glm::translate(view, glm::vec3(-x, -y, -z));
-		projecton = glm::perspective(glm::radians(theta), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
+		view = camera.getViewMatrix();
+		projecton = glm::perspective(glm::radians(camera.zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
 		shader.activate();
 		shader.setMat4("model", model);
@@ -184,34 +187,40 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	SCR_HEIGHT = height;
 }
 
-void processInput(GLFWwindow* window) {
+void processInput(GLFWwindow* window, double dt) {
 	if (Keyboard::key(GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(window, true);
 	}
 
-	// move camere
-	if (Keyboard::key(GLFW_KEY_D)) {
-		x += 0.001f;
-	}
-	if (Keyboard::key(GLFW_KEY_A)) {
-		x -= 0.001f;
-	}
+	// move camera
 	if (Keyboard::key(GLFW_KEY_W)) {
-		y += 0.001f;
+		camera.updateCameraPos(CameraDirection::FORWARD, dt);
 	}
 	if (Keyboard::key(GLFW_KEY_S)) {
-		y -=  0.001f;
+		camera.updateCameraPos(CameraDirection::BACKWARD, dt);
+	}
+	if (Keyboard::key(GLFW_KEY_A)) {
+		camera.updateCameraPos(CameraDirection::LEFT, dt);
+	}
+	if (Keyboard::key(GLFW_KEY_D)) {
+		camera.updateCameraPos(CameraDirection::RIGHT, dt);
+	}
+	if (Keyboard::key(GLFW_KEY_SPACE)) {
+		camera.updateCameraPos(CameraDirection::UP, dt);
+	}
+	if (Keyboard::key(GLFW_KEY_LEFT_SHIFT)) {
+		camera.updateCameraPos(CameraDirection::DOWN, dt);
 	}
 
-	// zoom camera
-		z += (float) Mouse::getScrollDX();
-		z -= (float) Mouse::getScrollDY();
-
-	// change field of view
-	if (Keyboard::keyWentDown(GLFW_KEY_KP_ADD)) {
-		theta += 5;
+	if (Mouse::button(GLFW_MOUSE_BUTTON_2)) {
+		double dx = Mouse::getDX(), dy = Mouse::getDY();
+		if (dx != 0 || dy != 0) {
+			camera.updateCameraDirecion(dx, dy);
+		}
 	}
-	if (Keyboard::keyWentDown(GLFW_KEY_KP_SUBTRACT)) {
-		theta -= 5;
+
+	double scrollDY = Mouse::getScrollDY();
+	if (scrollDY != 0) {
+		camera.updateCameraZoom(scrollDY);
 	}
 }
