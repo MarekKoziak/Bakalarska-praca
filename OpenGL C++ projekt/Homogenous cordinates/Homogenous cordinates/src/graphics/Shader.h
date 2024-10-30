@@ -16,6 +16,7 @@ public:
 	unsigned int id;
 
 	Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
+
 	void activate();
 
 	// utility function

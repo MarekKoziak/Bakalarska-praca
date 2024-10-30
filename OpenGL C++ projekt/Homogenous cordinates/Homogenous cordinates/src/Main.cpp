@@ -11,25 +11,22 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include"Shader.h"
+#include "graphics/Shader.h"
 
 #include "io/Keyboard.h"
 #include "io/Mouse.h"
 #include "io/Camera.h"
+#include "io/Screen.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window, double dt);
+void processInput(double dt);
 
-unsigned int SCR_WIDTH = 800, SCR_HEIGHT = 600; 
+Screen screen;
 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 int main() {
-
-	int success;
-	char infoLog[512];
 
 	glfwInit();
 
@@ -43,13 +40,11 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COPMPAT, GL_TRUEF);
 #endif
 
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Title", NULL, NULL);
-	if (window == NULL) { // window not created
+	if (!screen.init()) { // window not created
 		std::cout << "Could not create window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
-	glfwMakeContextCurrent(window);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "Failed to initialize GLAD" << std::endl;
@@ -57,17 +52,9 @@ int main() {
 		return -1;
 	}
 
-	glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+	screen.setParameters();
 
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-	glfwSetKeyCallback(window, Keyboard::keyCallBack);
-
-	glfwSetCursorPosCallback(window, Mouse::cursorPosCallBack);
-	glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
-	glfwSetScrollCallback(window, Mouse::mouseWheelCallBack);
-
-	Shader shader("assets/vertex_core.glsl", "assets/fragment_core.glsl");
+	Shader shader("assets/object.vs", "assets/object.fs");
 
 	// vertex array
 	float vertices[] = {
@@ -140,17 +127,16 @@ int main() {
 	
 
 
-	while (!glfwWindowShouldClose(window)) {
+	while (!screen.shouldClose()) {
 		double currentTime = glfwGetTime();
 		deltaTime = currentTime - lastFrame;
 		lastFrame = currentTime;
 
 		// process input
-		processInput(window, deltaTime);
+		processInput(deltaTime);
 
 		// render
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		screen.update();
 
 		// create transformation for screen
 		glm::mat4 model = glm::mat4(1.0f);
@@ -159,7 +145,7 @@ int main() {
 
 		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
 		view = camera.getViewMatrix();
-		projecton = glm::perspective(glm::radians(camera.zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		projecton = glm::perspective(glm::radians(camera.getZoom()), (float)screen.SCR_WIDTH / (float)screen.SCR_HEIGHT, 0.1f, 100.0f);
 
 		shader.activate();
 		shader.setMat4("model", model);
@@ -170,8 +156,7 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// send new frame to window
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+		screen.newFrame();
 	}
 
 	glDeleteVertexArrays(1, &VAO);
@@ -181,15 +166,9 @@ int main() {
 	return 0;
 }
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-	glViewport(0, 0, width, height);
-	SCR_WIDTH = width;
-	SCR_HEIGHT = height;
-}
-
-void processInput(GLFWwindow* window, double dt) {
+void processInput(double dt) {
 	if (Keyboard::key(GLFW_KEY_ESCAPE)) {
-		glfwSetWindowShouldClose(window, true);
+		screen.setShouldClose(true);
 	}
 
 	// move camera
