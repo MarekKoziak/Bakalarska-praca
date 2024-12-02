@@ -3,7 +3,7 @@
 
 #include "../Model.h"
 
-class Cordinates : Model {
+class Cordinates : public Model {
 public:
 	glm::vec3 size;
 

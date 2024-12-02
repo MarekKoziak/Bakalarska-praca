@@ -1,3 +1,7 @@
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -62,8 +66,16 @@ int main() {
 
 	Cube cube(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f));
 	cube.init();
-	Cordinates cor(glm::vec3(1.0f));
-	cor.init();
+	Cordinates cordinates(glm::vec3(1.0f));
+	cordinates.init();
+
+	// ImGUI initialization
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(screen.getWindow(), true);
+	ImGui_ImplOpenGL3_Init("#version 330");
 
 	while (!screen.shouldClose()) {
 		double currentTime = glfwGetTime();
@@ -75,6 +87,11 @@ int main() {
 
 		// update frame
 		screen.update();
+
+		// ImGUI window
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		shader.activate();
 
@@ -89,8 +106,16 @@ int main() {
 		shader.setMat4("view", view);
 		shader.setMat4("projection", projection);
 
+		// ImGui window setup
+		ImGui::Begin("ImGui");
+		ImGui::Text("Test text for ImGUI window");
+		ImGui::End();
+		// render UI elements
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		//render shapes
-		cor.render(shader);
+		cordinates.render(shader);
 		cube.render(shader);
 
 		// send new frame to window
@@ -98,6 +123,12 @@ int main() {
 	}
 
 	cube.cleanup();
+	cordinates.cleanup();
+	
+	// ImGui cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
 	glfwTerminate();
 	return 0;

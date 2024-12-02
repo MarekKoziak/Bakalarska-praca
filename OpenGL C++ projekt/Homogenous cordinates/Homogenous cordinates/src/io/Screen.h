@@ -17,6 +17,8 @@ public:
 
 	void setParameters();
 
+	GLFWwindow* getWindow();
+
 	// main loop
 	void update();
 	void newFrame();
