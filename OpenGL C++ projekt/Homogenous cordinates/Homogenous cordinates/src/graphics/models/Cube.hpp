@@ -7,6 +7,8 @@ class Cube : public Model {
 public:
 	glm::vec3 pos;
 	glm::vec3 size;
+	float sizeMultiplayer = 1.0f;
+	float w = 1;
 
 	Cube(glm::vec3 pos, glm::vec3 size)
 		: pos(pos), size(size) {}
@@ -70,8 +72,8 @@ public:
 
 	void render(Shader shader) {
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, size);
-		model = glm::translate(model, pos);
+		model = glm::translate(model, pos / w);
+		model = glm::scale(model, size * sizeMultiplayer / w);
 		shader.setMat4("model", model);
 
 		Model::render(shader);

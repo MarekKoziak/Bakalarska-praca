@@ -6,6 +6,8 @@
 class Cordinates : public Model {
 public:
 	glm::vec3 size;
+	float sizeMultiplayer = 1.0f;
+
 
 	Cordinates(glm::vec3 size)
 		: size(size) {}
@@ -103,7 +105,7 @@ public:
 
 	void render(Shader shader) {
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, size);
+		model = glm::scale(model, size * sizeMultiplayer);
 		shader.setMat4("model", model);
 
 		Model::render(shader);

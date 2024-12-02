@@ -106,9 +106,42 @@ int main() {
 		shader.setMat4("view", view);
 		shader.setMat4("projection", projection);
 
-		// ImGui window setup
+		// ImGui window layout global settings
 		ImGui::Begin("ImGui");
-		ImGui::Text("Test text for ImGUI window");
+		ImGui::PushItemWidth(50.0f);
+
+		//ImGUI window layout
+		ImGui::Text("Cordinates settings");
+		ImGui::Separator();
+		ImGui::Text("Size multiplayer ");
+		ImGui::SameLine();
+		ImGui::InputFloat("##cordinates multiplayer", &cordinates.sizeMultiplayer, 0.0, 0.0, "%.2f");
+		ImGui::Spacing();
+		ImGui::Spacing();
+
+		ImGui::Text("Object settings");
+		ImGui::Separator();
+		ImGui::Text("Size multiplayer ");
+		ImGui::SameLine();
+		ImGui::InputFloat("##object multiplayer", &cube.sizeMultiplayer, 0.0, 0.0, "%.2f");
+		ImGui::Text("Position: ");
+		ImGui::Text("x");
+		ImGui::SameLine();
+		ImGui::InputFloat("##object x", &cube.pos.x);
+		ImGui::SameLine();
+		ImGui::Text("y");
+		ImGui::SameLine();
+		ImGui::InputFloat("##object y", &cube.pos.y);
+		ImGui::SameLine();
+		ImGui::Text("z");
+		ImGui::SameLine();
+		ImGui::InputFloat("##object z", &cube.pos.z);
+		ImGui::SameLine();
+		ImGui::Text("w");
+		ImGui::SameLine();
+		ImGui::InputFloat("##object w", &cube.w);
+
+
 		ImGui::End();
 		// render UI elements
 		ImGui::Render();
@@ -116,11 +149,15 @@ int main() {
 
 		//render shapes
 		cordinates.render(shader);
+		glUniform1f(glGetUniformLocation(shader.id, "w"), cube.w);
 		cube.render(shader);
+		glUniform1f(glGetUniformLocation(shader.id, "w"), 1);
 
 		// send new frame to window
 		screen.newFrame();
 	}
+	std::cout << "Cordinates:" << cordinates.size.x << cordinates.size.y << cordinates.size.z;
+
 
 	cube.cleanup();
 	cordinates.cleanup();
