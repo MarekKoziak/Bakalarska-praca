@@ -42,6 +42,8 @@
     <None Include="glfw3.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\models\Cube2.hpp" />
+    <ClInclude Include="src\graphics\models\Ray.hpp" />
     <ClInclude Include="src\imgui\imconfig.h" />
     <ClInclude Include="src\imgui\imgui.h" />
     <ClInclude Include="src\imgui\imgui_impl_glfw.h" />
@@ -54,7 +56,7 @@
     <ClInclude Include="src\graphics\Mesh.h" />
     <ClInclude Include="src\graphics\Model.h" />
     <ClInclude Include="src\graphics\models\Cordinates.hpp" />
-    <ClInclude Include="src\graphics\models\Cube.hpp" />
+    <ClInclude Include="src\graphics\models\Cube1.hpp" />
     <ClInclude Include="src\graphics\Shader.h" />
     <ClInclude Include="src\io\Camera.h" />
     <ClInclude Include="src\io\Keyboard.h" />

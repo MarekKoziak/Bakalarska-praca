@@ -17,8 +17,10 @@
 
 #include "graphics/Shader.h"
 
-#include "graphics/models/Cube.hpp"
 #include "graphics/models/Cordinates.hpp"
+#include "graphics/models/Cube1.hpp"
+#include "graphics/models/Cube2.hpp"
+#include "graphics/models/Ray.hpp"
 
 
 #include "io/Keyboard.h"
@@ -30,7 +32,7 @@ void processInput(double dt);
 
 Screen screen;
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 1.0f, 3.0f));
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
@@ -64,10 +66,15 @@ int main() {
 
 	Shader shader("assets/object.vs", "assets/object.fs");
 
-	Cube cube(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f));
-	cube.init();
-	Cordinates cordinates(glm::vec3(1.0f));
+	Cordinates cordinates(glm::vec3(2.0f));
 	cordinates.init();
+	Cube1 cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
+	cube1.init();
+	Cube2 cube2(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
+	cube2.init();
+	Ray ray(glm::vec3(1.0f));
+	ray.init();
+
 
 	// ImGUI initialization
 	IMGUI_CHECKVERSION();
@@ -84,6 +91,7 @@ int main() {
 
 		// process input
 		processInput(deltaTime);
+		ray.crossPoint();
 
 		// update frame
 		screen.update();
@@ -123,23 +131,20 @@ int main() {
 		ImGui::Separator();
 		ImGui::Text("Size multiplayer ");
 		ImGui::SameLine();
-		ImGui::InputFloat("##object multiplayer", &cube.sizeMultiplayer, 0.0, 0.0, "%.2f");
+		ImGui::InputFloat("##object multiplayer", &cube1.sizeMultiplayer, 0.0, 0.0, "%.2f");
 		ImGui::Text("Position: ");
 		ImGui::Text("x");
 		ImGui::SameLine();
-		ImGui::InputFloat("##object x", &cube.pos.x);
+		ImGui::InputFloat("##object x", &cube1.pos.x); cube2.pos.x = cube1.pos.x;
 		ImGui::SameLine();
 		ImGui::Text("y");
 		ImGui::SameLine();
-		ImGui::InputFloat("##object y", &cube.pos.y);
-		ImGui::SameLine();
-		ImGui::Text("z");
-		ImGui::SameLine();
-		ImGui::InputFloat("##object z", &cube.pos.z);
+		ImGui::InputFloat("##object y", &cube1.pos.y); cube2.pos.y = cube1.pos.y;
 		ImGui::SameLine();
 		ImGui::Text("w");
 		ImGui::SameLine();
-		ImGui::InputFloat("##object w", &cube.w);
+		ImGui::InputFloat("##object w", &cube2.w);
+		ray.pointPozition = cube1.pos;
 
 
 		ImGui::End();
@@ -149,18 +154,18 @@ int main() {
 
 		//render shapes
 		cordinates.render(shader);
-		glUniform1f(glGetUniformLocation(shader.id, "w"), cube.w);
-		cube.render(shader);
-		glUniform1f(glGetUniformLocation(shader.id, "w"), 1);
+		cube1.render(shader);
+		cube2.render(shader);
+		ray.render(shader);
 
 		// send new frame to window
 		screen.newFrame();
 	}
-	std::cout << "Cordinates:" << cordinates.size.x << cordinates.size.y << cordinates.size.z;
 
-
-	cube.cleanup();
 	cordinates.cleanup();
+	cube1.cleanup();
+	cube2.cleanup();
+	ray.cleanup();
 	
 	// ImGui cleanup
 	ImGui_ImplOpenGL3_Shutdown();
