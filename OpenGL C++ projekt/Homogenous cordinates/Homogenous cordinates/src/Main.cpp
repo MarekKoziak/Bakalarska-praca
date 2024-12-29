@@ -1,6 +1,6 @@
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -28,11 +28,11 @@
 #include "io/Camera.h"
 #include "io/Screen.h"
 
-void processInput(double dt);
-
 Screen screen;
 
 Camera camera(glm::vec3(0.0f, 1.0f, 3.0f));
+
+void processInput(double dt);
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
@@ -175,6 +175,8 @@ int main() {
 	glfwTerminate();
 	return 0;
 }
+
+
 
 void processInput(double dt) {
 	if (Keyboard::key(GLFW_KEY_ESCAPE)) {
