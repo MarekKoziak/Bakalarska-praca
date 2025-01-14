@@ -9,8 +9,10 @@ unsigned int Screen::SCR_HEIGHT = 600;
 void Screen::framebufferSizeCallBack(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 
-	SCR_WIDTH = width;
-	SCR_HEIGHT = height;
+	if (width != 0 || height != 0) {
+		SCR_WIDTH = width;
+		SCR_HEIGHT = height;
+	}
 }
 
 Screen::Screen()
