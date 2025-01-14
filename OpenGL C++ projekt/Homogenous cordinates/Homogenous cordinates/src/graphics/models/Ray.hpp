@@ -6,9 +6,8 @@
 class Ray : public Model {
 public:
 	glm::vec3 size;
-	glm::vec3 pointPozition;
 	glm::vec3 rotationAxis;
-	float lengthMultiplayer = 3.0f;
+	float lengthMultiplier;
 	float angle;
 
 
@@ -47,31 +46,24 @@ public:
 		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indicies));
 	}
 
-	void crossPoint() {
+	void transformParameters(glm::vec3 pointPos) {
 		glm::vec3 Yaxis(0.0f, 0.0f, 1.0f);
-		float pointDistance;
+		
+		// axis and angle calculations
+		float triangleHypotenuse = glm::length(pointPos);
+		float triangleOpposite = glm::length(glm::vec3(0.0f, 0.0f, pointPos.z));
 
-		rotationAxis = glm::normalize(glm::cross(pointPozition, Yaxis));
-		pointDistance = glm::length(glm::vec2(pointPozition.x, pointPozition.z));
-
-		if (pointDistance == 0.0f) {
-			angle = 0.0f;
-		}
-		else {
-			angle = asin(pointPozition.y / pointDistance);
-		}
+		angle = acos(triangleOpposite / triangleHypotenuse);
+		rotationAxis = glm::normalize(glm::cross(pointPos, Yaxis));
+		lengthMultiplier = triangleHypotenuse;
 	}
 
-	void render(Shader shader) {
-		// axis and angle calculations
-		glm::vec3 rotationAxis = glm::normalize(glm::cross(pointPozition, glm::vec3(0.0f, 0.0f, 1.0f)));
-		float triangleHypotenuse = glm::length(pointPozition);
-		float triangleOpposite = glm::length(glm::vec3(0.0f, 0.0f, -1.0f) - pointPozition);
-		float angle = asin(triangleOpposite / triangleHypotenuse);
+	void render(Shader shader, glm::vec3 pointPos) {
+		transformParameters(pointPos); // calculate parameters for transform matrices
 
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::rotate(model, angle, rotationAxis); // rotate to cross the point
-		model = glm::scale(model, glm::vec3(size.x, size.y, size.z * lengthMultiplayer));
+		model = glm::scale(model, glm::vec3(size.x, size.y, size.z * lengthMultiplier)); // extends the ray length to match point distance
 		shader.setMat4("model", model);
 
 		Model::render(shader);

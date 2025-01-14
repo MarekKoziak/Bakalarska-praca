@@ -6,7 +6,6 @@
 class Cordinates : public Model {
 public:
 	glm::vec3 size;
-	float sizeMultiplayer = 1.0f;
 
 
 	Cordinates(glm::vec3 size)
@@ -31,17 +30,17 @@ public:
 			 0.8f,  -0.05f, 0.0f,	1.0f, 0.0f, 0.0f,
 			 0.9f,   0.0f,  0.0f,	1.0f, 0.0f, 0.0f,
 
-			 0.8f,   0.0f,  0.01f,	1.0f, 0.1f, 0.0f,
-			 0.8f,   0.0f, -0.01f,	1.0f, 0.1f, 0.0f,
-			-0.8f,   0.0f, -0.01f,	1.0f, 0.1f, 0.0f,
+			 0.8f,   0.0f,  0.01f,	1.0f, 0.0f, 0.0f,
+			 0.8f,   0.0f, -0.01f,	1.0f, 0.0f, 0.0f,
+			-0.8f,   0.0f, -0.01f,	1.0f, 0.0f, 0.0f,
 					   						
-			 0.8f,   0.0f,  0.01f,	1.0f, 0.1f, 0.0f,
-			-0.8f,   0.0f, -0.01f,	1.0f, 0.1f, 0.0f,
-			-0.8f,   0.0f,  0.01f,	1.0f, 0.1f, 0.0f,
+			 0.8f,   0.0f,  0.01f,	1.0f, 0.0f, 0.0f,
+			-0.8f,   0.0f, -0.01f,	1.0f, 0.0f, 0.0f,
+			-0.8f,   0.0f,  0.01f,	1.0f, 0.0f, 0.0f,
 					   						
-			 0.8f,   0.0f,  0.05f,	1.0f, 0.1f, 0.0f,
-			 0.8f,   0.0f, -0.05f,	1.0f, 0.1f, 0.0f,
-			 0.9f,   0.0f,   0.0f, 	1.0f, 0.1f, 0.0f,
+			 0.8f,   0.0f,  0.05f,	1.0f, 0.0f, 0.0f,
+			 0.8f,   0.0f, -0.05f,	1.0f, 0.0f, 0.0f,
+			 0.9f,   0.0f,   0.0f, 	1.0f, 0.0f, 0.0f,
 
 			 // Y arrow
 			 0.01f,  0.8f,  0.0f,	0.0f, 1.0f, -0.0f,
@@ -105,7 +104,7 @@ public:
 
 	void render(Shader shader) {
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, size * sizeMultiplayer);
+		model = glm::scale(model, size * MyGui::size);
 		shader.setMat4("model", model);
 
 		Model::render(shader);

@@ -1,6 +1,4 @@
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
+#include "gui/Mygui.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -76,13 +74,7 @@ int main() {
 	ray.init();
 
 
-	// ImGUI initialization
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	ImGui::StyleColorsDark();
-	ImGui_ImplGlfw_InitForOpenGL(screen.getWindow(), true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	MyGui::init(screen.getWindow());
 
 	while (!screen.shouldClose()) {
 		double currentTime = glfwGetTime();
@@ -91,17 +83,9 @@ int main() {
 
 		// process input
 		processInput(deltaTime);
-		ray.crossPoint();
-
+		
 		// update frame
 		screen.update();
-
-		// ImGUI window
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		shader.activate();
 
 		// create transformation for screen
 		glm::mat4 view = glm::mat4(1.0f);
@@ -114,49 +98,13 @@ int main() {
 		shader.setMat4("view", view);
 		shader.setMat4("projection", projection);
 
-		// ImGui window layout global settings
-		ImGui::Begin("ImGui");
-		ImGui::PushItemWidth(50.0f);
-
-		//ImGUI window layout
-		ImGui::Text("Cordinates settings");
-		ImGui::Separator();
-		ImGui::Text("Size multiplayer ");
-		ImGui::SameLine();
-		ImGui::InputFloat("##cordinates multiplayer", &cordinates.sizeMultiplayer, 0.0, 0.0, "%.2f");
-		ImGui::Spacing();
-		ImGui::Spacing();
-
-		ImGui::Text("Object settings");
-		ImGui::Separator();
-		ImGui::Text("Size multiplayer ");
-		ImGui::SameLine();
-		ImGui::InputFloat("##object multiplayer", &cube1.sizeMultiplayer, 0.0, 0.0, "%.2f");
-		ImGui::Text("Position: ");
-		ImGui::Text("x");
-		ImGui::SameLine();
-		ImGui::InputFloat("##object x", &cube1.pos.x); cube2.pos.x = cube1.pos.x;
-		ImGui::SameLine();
-		ImGui::Text("y");
-		ImGui::SameLine();
-		ImGui::InputFloat("##object y", &cube1.pos.y); cube2.pos.y = cube1.pos.y;
-		ImGui::SameLine();
-		ImGui::Text("w");
-		ImGui::SameLine();
-		ImGui::InputFloat("##object w", &cube2.w);
-		ray.pointPozition = cube1.pos;
-
-
-		ImGui::End();
-		// render UI elements
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 		//render shapes
 		cordinates.render(shader);
-		cube1.render(shader);
 		cube2.render(shader);
-		ray.render(shader);
+		cube1.render(shader);
+		ray.render(shader, cube2.pos);
+
+		MyGui::show();
 
 		// send new frame to window
 		screen.newFrame();
@@ -166,11 +114,7 @@ int main() {
 	cube1.cleanup();
 	cube2.cleanup();
 	ray.cleanup();
-	
-	// ImGui cleanup
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	MyGui::cleanup();
 
 	glfwTerminate();
 	return 0;
