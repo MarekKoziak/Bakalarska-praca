@@ -1,4 +1,6 @@
 ﻿#include "MyGui.h"
+#include "../io/Screen.h"
+#include <string>
 
 ImGuiIO* MyGui::io = nullptr;
 ImGuiStyle* MyGui::style = nullptr;
@@ -10,13 +12,21 @@ float MyGui::w = 1.0f;
 float MyGui::size = 1.0f;
 
 void MyGui::show() {
-	MyGui::newFrame();
+	newFrame();
 
+	// main GUI window
+	mainWindowSettings();
 	ImGui::Begin("Ovládacie prvky");
-	MyGui::layout();
+	mainLayout();
 	ImGui::End();
 
-	MyGui::render();
+	// overlay window
+	overlayWindowSettings();
+	ImGui::Begin("Overlay", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+	overlayLayout();
+	ImGui::End();
+
+	render();
 }
 
 void MyGui::init(GLFWwindow* window) {
@@ -29,7 +39,6 @@ void MyGui::init(GLFWwindow* window) {
 	ImGui_ImplOpenGL3_Init("#version 330");
 
 	MyGui::customFontsLoading();
-	style->FrameRounding = 3.0f;
 }
 
 void MyGui::customFontsLoading() {
@@ -48,13 +57,6 @@ void MyGui::newFrame() {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-
-	ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f), ImGuiCond_Once);
-	ImGui::SetNextWindowSize(ImVec2(280, 200), ImGuiCond_Once);
-	ImGui::SetNextWindowSizeConstraints(
-		ImVec2(200, 0),
-		ImVec2(350, FLT_MAX)
-	);
 }
 
 void MyGui::render() {
@@ -68,7 +70,27 @@ void MyGui::cleanup() {
 	ImGui::DestroyContext();
 }
 
-void MyGui::layout() {
+void MyGui::mainWindowSettings() {
+	style->FrameRounding = 3;
+	style->WindowRounding = 5;
+	style->Colors[ImGuiCol_WindowBg] = ImVec4(0.06, 0.06, 0.06, 0.95);
+
+	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(280, 200), ImGuiCond_Once);
+	ImGui::SetNextWindowSizeConstraints(
+		ImVec2(200, 0),
+		ImVec2(350, FLT_MAX)
+	);
+}
+
+void MyGui::overlayWindowSettings() {
+	style->Colors[ImGuiCol_WindowBg] = ImVec4(1, 1, 1, 0.1);
+
+	ImGui::SetNextWindowPos(ImVec2(Screen::SCR_WIDTH - 120, Screen::SCR_HEIGHT - 60));
+	ImGui::SetNextWindowSize(ImVec2(120, 60));
+}
+
+void MyGui::mainLayout() {
 	ImGui::PushFont(myFontH1);
 	ImGui::PushItemWidth(-FLT_MIN);
 		ImGui::Text("Nastavenia súradníc");
@@ -91,14 +113,29 @@ void MyGui::layout() {
 		if (ImGui::BeginTable("FullWidthTable", 3, ImGuiTableFlags_SizingStretchSame)) {
 				ImGui::TableNextColumn();
 				ImGui::PushItemWidth(-FLT_MIN);
-				ImGui::DragFloat("##point x", &x, 0.1f);
+				ImGui::DragFloat("##point x", &x, 0.01f);
 				ImGui::TableNextColumn();
 				ImGui::PushItemWidth(-FLT_MIN);
-				ImGui::DragFloat("##point y", &y, 0.1f);
+				ImGui::DragFloat("##point y", &y, 0.01f);
 				ImGui::TableNextColumn();
 				ImGui::PushItemWidth(-FLT_MIN);
-				ImGui::DragFloat("##point w", &w, 0.1f, 0.0f, FLT_MAX, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+				ImGui::DragFloat("##point w", &w, 0.01f, 0.0f, FLT_MAX, "%.3f", ImGuiSliderFlags_AlwaysClamp);
 			ImGui::EndTable();
 		}
+	ImGui::PopFont();
+}
+
+void MyGui::overlayLayout() {
+	ImGui::PushFont(myFontH2);
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 1, 0, 1));
+
+	ImGui::Text("x =");
+	ImGui::SameLine();
+	ImGui::Text(std::to_string(x/w).c_str());
+	ImGui::Text("y =");
+	ImGui::SameLine();
+	ImGui::Text(std::to_string(y/w).c_str());
+
+	ImGui::PopStyleColor();
 	ImGui::PopFont();
 }

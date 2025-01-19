@@ -10,12 +10,16 @@ public:
 	static float x, y, w, size;
 
 	static void init(GLFWwindow* window);
-	static void render();
 	static void cleanup();
 
-	static void show();
-	static void layout();
 	static void newFrame();
+	static void mainLayout();
+	static void overlayLayout();
+	static void render();
+	static void show();
+
+	static void mainWindowSettings();
+	static void overlayWindowSettings();
 
 	static void customFontsLoading();
 

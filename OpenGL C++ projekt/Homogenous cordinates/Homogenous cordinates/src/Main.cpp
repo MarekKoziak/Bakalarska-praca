@@ -102,7 +102,7 @@ int main() {
 		cordinates.render(shader);
 		cube2.render(shader);
 		cube1.render(shader);
-		ray.render(shader, cube2.pos);
+		ray.render(shader, cube1.pos, cube2.pos);
 
 		MyGui::show();
 

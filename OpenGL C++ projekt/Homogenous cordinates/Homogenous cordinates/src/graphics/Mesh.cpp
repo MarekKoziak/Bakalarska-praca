@@ -11,7 +11,7 @@ std::vector<Vertex> Vertex::genList(float* vertices, int noVertices) {
 			vertices[i * stride + 1],
 			vertices[i * stride + 2]
 		);
-
+		
 		ret[i].color = glm::vec3(
 			vertices[i * stride + 3],
 			vertices[i * stride + 4],
