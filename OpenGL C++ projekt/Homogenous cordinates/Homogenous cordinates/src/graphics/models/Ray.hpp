@@ -15,33 +15,25 @@ public:
 		: size(size) {}
 
 	void init() {
-		int noVertices = 12;
+		int noVertices = 8;
 
 		// vertex array
 		float vertices[] = {
 			// positions			colors
-			 0.0f,  0.01f,  0.0f,	0.0f, 0.0f, 1.0f,
-			 0.0f, -0.01f, -1.0f,	0.0f, 0.0f,	1.0f,
-			 0.0f,  0.01f, -1.0f,	0.0f, 0.0f,	1.0f,
-							
-			 0.0f, -0.01f,  0.0f,	0.0f, 0.0f,	1.0f,
-			 0.0f, -0.01f, -1.0f,	0.0f, 0.0f,	1.0f,
-			 0.0f,  0.01f,  0.0f,	0.0f, 0.0f,	1.0f,
-							
-			 0.01f, 0.0f,   0.0f,	0.0f, 0.0f, 1.0f,
-			-0.01f, 0.0f,   0.0f,	0.0f, 0.0f,	1.0f,
-			-0.01f, 0.0f,  -1.0f,	0.0f, 0.0f,	1.0f,
-							
-			 0.01f, 0.0f,   0.0f,	0.0f, 0.0f,	1.0f,
-			-0.01f, 0.0f,  -1.0f,	0.0f, 0.0f,	1.0f,
-			 0.01f, 0.0f,  -1.0f,	0.0f, 0.0f,	1.0f,
+			 0.0f,  0.01f,  0.0f,	1.0f, 1.0f, 0.0f,
+			 0.0f, -0.01f, -1.0f,	1.0f, 1.0f,	0.0f,
+			 0.0f,  0.01f, -1.0f,	1.0f, 1.0f,	0.0f,											
+			 0.0f, -0.01f,  0.0f,	1.0f, 1.0f,	0.0f,
+											
+			 0.01f, 0.0f,   0.0f,	1.0f, 1.0f, 0.0f,
+			-0.01f, 0.0f,   0.0f,	1.0f, 1.0f,	0.0f,
+			-0.01f, 0.0f,  -1.0f,	1.0f, 1.0f,	0.0f,												
+			 0.01f, 0.0f,  -1.0f,	1.0f, 1.0f,	0.0f,
 		};
 
-		// Could create more efficient indicies array
-		std::vector<unsigned int> indicies(noVertices);
-		for (unsigned int i = 0; i < noVertices; i++) {
-			indicies[i] = i;
-		}
+		
+		std::vector<unsigned int> indicies = {0, 1, 2, 3, 1, 0, 4, 5, 6, 4, 6, 7};
+
 
 		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indicies));
 	}

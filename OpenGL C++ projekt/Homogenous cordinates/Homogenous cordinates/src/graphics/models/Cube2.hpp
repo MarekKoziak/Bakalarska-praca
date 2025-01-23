@@ -13,7 +13,7 @@ public:
 		: pos(pos), size(size) {}
 
 	void init() {
-		int noVertices = 36;
+		int noVertices = 24;
 
 		// vertex array
 		float vertices[] = {
@@ -21,50 +21,38 @@ public:
 			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-
+							
 			-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-
+							
 			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 			-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-
+								
 			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-
+							
 			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 			-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-
+								
 			-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
 			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f
 		};
 
 		std::vector<unsigned int> indicies(noVertices);
-		for (unsigned int i = 0; i < noVertices; i++) {
-			indicies[i] = i;
-		}
+		for (unsigned int i = 0; i < 24; i += 4) {
+			indicies.insert(indicies.end(), { i + 0,i + 1,i + 2,i + 2,i + 3,i + 0 });
+		};
 
 		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indicies));
 	}
