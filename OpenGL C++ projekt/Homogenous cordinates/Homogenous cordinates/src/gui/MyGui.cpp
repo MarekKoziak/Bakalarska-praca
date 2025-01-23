@@ -73,7 +73,7 @@ void MyGui::cleanup() {
 void MyGui::mainWindowSettings() {
 	style->FrameRounding = 3;
 	style->WindowRounding = 5;
-	style->Colors[ImGuiCol_WindowBg] = ImVec4(0.06, 0.06, 0.06, 0.95);
+	style->Colors[ImGuiCol_WindowBg].w = 1;
 
 	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(280, 200), ImGuiCond_Once);
@@ -84,7 +84,7 @@ void MyGui::mainWindowSettings() {
 }
 
 void MyGui::overlayWindowSettings() {
-	style->Colors[ImGuiCol_WindowBg] = ImVec4(1, 1, 1, 0.1);
+	style->Colors[ImGuiCol_WindowBg].w = 0.5f;
 
 	ImGui::SetNextWindowPos(ImVec2(Screen::SCR_WIDTH - 120, Screen::SCR_HEIGHT - 60));
 	ImGui::SetNextWindowSize(ImVec2(120, 60));
@@ -127,12 +127,12 @@ void MyGui::mainLayout() {
 
 void MyGui::overlayLayout() {
 	ImGui::PushFont(myFontH2);
-	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 1, 0, 1));
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0.9, 0, 1));
 
-	ImGui::Text("x =");
+	ImGui::Text("x/w =");
 	ImGui::SameLine();
 	ImGui::Text(std::to_string(x/w).c_str());
-	ImGui::Text("y =");
+	ImGui::Text("y/w =");
 	ImGui::SameLine();
 	ImGui::Text(std::to_string(y/w).c_str());
 
