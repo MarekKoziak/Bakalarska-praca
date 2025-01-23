@@ -69,3 +69,7 @@ GLuint Shader::compileShader(const char* filepath, GLenum type) {
 void Shader::setMat4(const std::string& name, glm::mat4 val) {
 	glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, glm::value_ptr(val));
 }
+
+void Shader::setFloat(const std::string& name, float val) {
+	glUniform1f(glGetUniformLocation(id, name.c_str()), val);
+}

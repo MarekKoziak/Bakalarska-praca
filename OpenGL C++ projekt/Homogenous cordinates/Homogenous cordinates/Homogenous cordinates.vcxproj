@@ -22,6 +22,7 @@
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\graphics\Mesh.cpp" />
     <ClCompile Include="src\graphics\Model.cpp" />
+    <ClCompile Include="src\graphics\models\PlaneCordinates.hpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\gui\MyGui.cpp" />
     <ClCompile Include="src\io\Camera.cpp" />
@@ -33,9 +34,12 @@
   <ItemGroup>
     <None Include="assets\object.fs" />
     <None Include="assets\object.vs" />
+    <None Include="assets\transparentObject.fs" />
+    <None Include="assets\transparentObject.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\models\Cube2.hpp" />
+    <ClInclude Include="src\graphics\models\ProjectivePlane.hpp" />
     <ClInclude Include="src\graphics\models\Ray.hpp" />
     <ClInclude Include="src\graphics\Mesh.h" />
     <ClInclude Include="src\graphics\Model.h" />

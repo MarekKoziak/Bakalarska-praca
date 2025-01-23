@@ -16,6 +16,8 @@
 #include "graphics/Shader.h"
 
 #include "graphics/models/Cordinates.hpp"
+#include "graphics/models/ProjectivePlane.hpp"
+#include "graphics/Models/PlaneCordinates.hpp"
 #include "graphics/models/Cube1.hpp"
 #include "graphics/models/Cube2.hpp"
 #include "graphics/models/Ray.hpp"
@@ -27,8 +29,7 @@
 #include "io/Screen.h"
 
 Screen screen;
-
-Camera camera(glm::vec3(0.0f, 1.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 0.2f, 4.0f));
 
 void processInput(double dt);
 float deltaTime = 0.0f;
@@ -63,9 +64,16 @@ int main() {
 	screen.setParameters();
 
 	Shader shader("assets/object.vs", "assets/object.fs");
+	Shader shaderTransparency("assets/transparentObject.vs", "assets/transparentObject.fs");
+
+	glm::vec3 planeCordinatesSize(2.0f, 2.0f, 1.0f);
 
 	Cordinates cordinates(glm::vec3(2.0f));
 	cordinates.init();
+	ProjectivePlane plane(planeCordinatesSize, 0.2f);
+	plane.init();
+	PlaneCordinates planeCordinates(planeCordinatesSize);
+	planeCordinates.init();
 	Cube1 cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
 	cube1.init();
 	Cube2 cube2(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
@@ -75,6 +83,7 @@ int main() {
 
 
 	MyGui::init(screen.getWindow());
+
 
 	while (!screen.shouldClose()) {
 		double currentTime = glfwGetTime();
@@ -94,15 +103,24 @@ int main() {
 		view = camera.getViewMatrix();
 		projection = glm::perspective(glm::radians(camera.getZoom()), (float)screen.SCR_WIDTH / (float)screen.SCR_HEIGHT, 0.1f, 100.0f);
 
+		shaderTransparency.activate();
+		shaderTransparency.setMat4("view", view);
+		shaderTransparency.setMat4("projection", projection);
+
 		shader.activate();
 		shader.setMat4("view", view);
 		shader.setMat4("projection", projection);
 
 		//render shapes
+		shader.activate();
 		cordinates.render(shader);
 		cube2.render(shader);
 		cube1.render(shader);
 		ray.render(shader, cube1.pos, cube2.pos);
+		planeCordinates.render(shader);
+
+		shaderTransparency.activate();
+		plane.render(shaderTransparency);
 
 		MyGui::show();
 
@@ -111,6 +129,8 @@ int main() {
 	}
 
 	cordinates.cleanup();
+	planeCordinates.cleanup();
+	plane.cleanup();
 	cube1.cleanup();
 	cube2.cleanup();
 	ray.cleanup();
