@@ -22,7 +22,6 @@
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\graphics\Mesh.cpp" />
     <ClCompile Include="src\graphics\Model.cpp" />
-    <ClCompile Include="src\graphics\models\PlaneCordinates.hpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\gui\MyGui.cpp" />
     <ClCompile Include="src\io\Camera.cpp" />

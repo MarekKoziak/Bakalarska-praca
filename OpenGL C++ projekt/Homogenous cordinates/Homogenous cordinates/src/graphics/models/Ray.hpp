@@ -19,23 +19,22 @@ public:
 
 		// vertex array
 		float vertices[] = {
-			// positions			colors
-			 0.0f,  0.01f,  0.0f,	1.0f, 1.0f, 0.0f,
-			 0.0f, -0.01f, -1.0f,	1.0f, 1.0f,	0.0f,
-			 0.0f,  0.01f, -1.0f,	1.0f, 1.0f,	0.0f,											
-			 0.0f, -0.01f,  0.0f,	1.0f, 1.0f,	0.0f,
-											
-			 0.01f, 0.0f,   0.0f,	1.0f, 1.0f, 0.0f,
-			-0.01f, 0.0f,   0.0f,	1.0f, 1.0f,	0.0f,
-			-0.01f, 0.0f,  -1.0f,	1.0f, 1.0f,	0.0f,												
-			 0.01f, 0.0f,  -1.0f,	1.0f, 1.0f,	0.0f,
+			// positions			
+			 0.0f,  0.01f,  0.0f,	
+			 0.0f, -0.01f, -1.0f,	
+			 0.0f,  0.01f, -1.0f,												
+			 0.0f, -0.01f,  0.0f,	
+									
+			 0.01f, 0.0f,   0.0f,	
+			-0.01f, 0.0f,   0.0f,	
+			-0.01f, 0.0f,  -1.0f,													
+			 0.01f, 0.0f,  -1.0f	
 		};
 
 		
 		std::vector<unsigned int> indicies = {0, 1, 2, 3, 1, 0, 4, 5, 6, 4, 6, 7};
 
-
-		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indicies));
+		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(1.0f, 1.0f, 0.0f)), indicies));
 	}
 
 	void transformParameters(glm::vec3 pointPos1, glm::vec3 pointPos2) {

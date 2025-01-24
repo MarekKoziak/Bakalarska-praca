@@ -9,7 +9,6 @@ ImFont* MyGui::myFontH2 = nullptr;
 float MyGui::x = 0.0f;
 float MyGui::y = 0.0f;
 float MyGui::w = 1.0f;
-float MyGui::size = 1.0f;
 
 void MyGui::show() {
 	newFrame();
@@ -91,19 +90,6 @@ void MyGui::overlayWindowSettings() {
 }
 
 void MyGui::mainLayout() {
-	ImGui::PushFont(myFontH1);
-	ImGui::PushItemWidth(-FLT_MIN);
-		ImGui::Text("Nastavenia súradníc");
-	ImGui::PopFont();
-	ImGui::PushFont(myFontH2);
-		ImGui::Separator();
-		ImGui::Spacing();
-		ImGui::Text("Veľkosť ");
-		ImGui::SameLine();
-		ImGui::SliderFloat("##slider", &size, 1.0f, 3.0f, "%.1f");
-		ImGui::Spacing();
-	ImGui::PopFont();
-
 	ImGui::PushFont(myFontH1);
 		ImGui::Text("Nastavenia bodu");
 	ImGui::PopFont();

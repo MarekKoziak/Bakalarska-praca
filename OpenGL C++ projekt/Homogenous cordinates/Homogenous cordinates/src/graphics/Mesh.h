@@ -14,6 +14,7 @@ struct Vertex {
 	glm::vec3 color;
 
 	static std::vector<struct Vertex> genList(float* vertices, int noVertices);
+	static std::vector<struct Vertex> genList(float* vertices, int noVertices, glm::vec3 singleColor);
 };
 typedef struct Vertex Vertex;
 

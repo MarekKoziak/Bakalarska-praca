@@ -17,36 +17,36 @@ public:
 
 		// vertex array
 		float vertices[] = {
-			// positions			colors
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-									    
-			-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-									    
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-									    
-			 0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-									    
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-									    
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+			// positions		
+			-0.5f, -0.5f, -0.5f,
+			 0.5f, -0.5f, -0.5f,
+			 0.5f,  0.5f, -0.5f,
+			-0.5f,  0.5f, -0.5f,
+								
+			-0.5f, -0.5f,  0.5f,
+			 0.5f, -0.5f,  0.5f,
+			 0.5f,  0.5f,  0.5f,
+			-0.5f,  0.5f,  0.5f,
+								
+			-0.5f,  0.5f,  0.5f,
+			-0.5f,  0.5f, -0.5f,
+			-0.5f, -0.5f, -0.5f,
+			-0.5f, -0.5f,  0.5f,
+								
+			 0.5f,  0.5f,  0.5f,
+			 0.5f,  0.5f, -0.5f,
+			 0.5f, -0.5f, -0.5f,
+			 0.5f, -0.5f,  0.5f,
+								
+			-0.5f, -0.5f, -0.5f,
+			 0.5f, -0.5f, -0.5f,
+			 0.5f, -0.5f,  0.5f,
+			-0.5f, -0.5f,  0.5f,
+								
+			-0.5f,  0.5f, -0.5f,
+			 0.5f,  0.5f, -0.5f,
+			 0.5f,  0.5f,  0.5f,
+			-0.5f,  0.5f,  0.5f
 		};
 
 		std::vector<unsigned int> indicies(noVertices);
@@ -54,7 +54,7 @@ public:
 			indicies.insert(indicies.end(), {i + 0,i + 1,i + 2,i + 2,i + 3,i + 0});
 		};
 
-		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indicies));
+		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(0.0f, 1.0f, 0.0f)), indicies));
 	}
 
 	void render(Shader shader) {

@@ -22,6 +22,24 @@ std::vector<Vertex> Vertex::genList(float* vertices, int noVertices) {
 	return ret; 
 }
 
+std::vector<Vertex> Vertex::genList(float* vertices, int noVertices, glm::vec3 singleColor) {
+	std::vector<Vertex> ret(noVertices);
+
+	int stride = sizeof(glm::vec3) / sizeof(float);
+
+	for (int i = 0; i < noVertices; i++) {
+		ret[i].pos = glm::vec3(
+			vertices[i * stride + 0],
+			vertices[i * stride + 1],
+			vertices[i * stride + 2]
+		);
+
+		ret[i].color = singleColor;
+	}
+
+	return ret;
+}
+
 Mesh::Mesh() {
 
 }

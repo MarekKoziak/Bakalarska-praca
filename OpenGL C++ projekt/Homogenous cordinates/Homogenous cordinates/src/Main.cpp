@@ -17,7 +17,6 @@
 
 #include "graphics/models/Cordinates.hpp"
 #include "graphics/models/ProjectivePlane.hpp"
-#include "graphics/Models/PlaneCordinates.hpp"
 #include "graphics/models/Cube1.hpp"
 #include "graphics/models/Cube2.hpp"
 #include "graphics/models/Ray.hpp"
@@ -72,8 +71,6 @@ int main() {
 	cordinates.init();
 	ProjectivePlane plane(planeCordinatesSize, 0.2f);
 	plane.init();
-	PlaneCordinates planeCordinates(planeCordinatesSize);
-	planeCordinates.init();
 	Cube1 cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
 	cube1.init();
 	Cube2 cube2(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
@@ -117,7 +114,6 @@ int main() {
 		cube2.render(shader);
 		cube1.render(shader);
 		ray.render(shader, cube1.pos, cube2.pos);
-		planeCordinates.render(shader);
 
 		shaderTransparency.activate();
 		plane.render(shaderTransparency);
@@ -129,7 +125,6 @@ int main() {
 	}
 
 	cordinates.cleanup();
-	planeCordinates.cleanup();
 	plane.cleanup();
 	cube1.cleanup();
 	cube2.cleanup();
