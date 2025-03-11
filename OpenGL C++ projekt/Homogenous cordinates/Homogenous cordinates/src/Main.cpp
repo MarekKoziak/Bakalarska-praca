@@ -17,6 +17,7 @@
 
 #include "graphics/models/Cordinates.hpp"
 #include "graphics/models/ProjectivePlane.hpp"
+#include "graphics/models/Arrow.hpp"
 #include "graphics/models/Cube1.hpp"
 #include "graphics/models/Cube2.hpp"
 #include "graphics/models/Ray.hpp"
@@ -65,18 +66,14 @@ int main() {
 	Shader shader("assets/object.vs", "assets/object.fs");
 	Shader shaderTransparency("assets/transparentObject.vs", "assets/transparentObject.fs");
 
-	glm::vec3 planeCordinatesSize(2.0f, 2.0f, 1.0f);
+	glm::vec3 planeSize(2.0f, 2.0f, 1.0f);
 
 	Cordinates cordinates(glm::vec3(2.0f));
-	cordinates.init();
-	ProjectivePlane plane(planeCordinatesSize, 0.2f);
-	plane.init();
+	ProjectivePlane plane(planeSize, 0.35f);
+	Arrow arrow(glm::vec3(0.5f));
 	Cube1 cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
-	cube1.init();
 	Cube2 cube2(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
-	cube2.init();
 	Ray ray(glm::vec3(1.0f));
-	ray.init();
 
 
 	MyGui::init(screen.getWindow());
@@ -111,9 +108,15 @@ int main() {
 		//render shapes
 		shader.activate();
 		cordinates.render(shader);
+		cube1.updateposition();
+		cube2.updatePosition();
 		cube2.render(shader);
-		cube1.render(shader);
-		ray.render(shader, cube1.pos, cube2.pos);
+		if (cube1.pos.x > plane.border.x || cube1.pos.x < -plane.border.x || cube1.pos.y > plane.border.y || cube1.pos.y < -plane.border.y) {
+			arrow.render(shader, cube2.pos, plane.border);
+		}else {
+			cube1.render(shader);
+			ray.render(shader, cube1.pos, cube2.pos);
+		}
 
 		shaderTransparency.activate();
 		plane.render(shaderTransparency);
@@ -129,6 +132,7 @@ int main() {
 	cube1.cleanup();
 	cube2.cleanup();
 	ray.cleanup();
+	arrow.cleanup();
 	MyGui::cleanup();
 
 	glfwTerminate();

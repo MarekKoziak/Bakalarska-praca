@@ -115,10 +115,10 @@ void MyGui::overlayLayout() {
 	ImGui::PushFont(myFontH2);
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0.9, 0, 1));
 
-	ImGui::Text("x/w =");
+	ImGui::Text("u =");
 	ImGui::SameLine();
 	ImGui::Text(std::to_string(x/w).c_str());
-	ImGui::Text("y/w =");
+	ImGui::Text("v =");
 	ImGui::SameLine();
 	ImGui::Text(std::to_string(y/w).c_str());
 

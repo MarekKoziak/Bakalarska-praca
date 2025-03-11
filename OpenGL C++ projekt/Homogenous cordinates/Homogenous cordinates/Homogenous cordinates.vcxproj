@@ -37,6 +37,7 @@
     <None Include="assets\transparentObject.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\models\Arrow.hpp" />
     <ClInclude Include="src\graphics\models\Cube2.hpp" />
     <ClInclude Include="src\graphics\models\ProjectivePlane.hpp" />
     <ClInclude Include="src\graphics\models\Ray.hpp" />

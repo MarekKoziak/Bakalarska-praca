@@ -12,7 +12,7 @@ public:
 
 
 	Ray(glm::vec3 size)
-		: size(size) {}
+		: size(size) {init();}
 
 	void init() {
 		int noVertices = 8;
@@ -32,9 +32,9 @@ public:
 		};
 
 		
-		std::vector<unsigned int> indicies = {0, 1, 2, 3, 1, 0, 4, 5, 6, 4, 6, 7};
+		std::vector<unsigned int> indices = {0, 1, 2, 3, 1, 0, 4, 5, 6, 4, 6, 7};
 
-		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(1.0f, 1.0f, 0.0f)), indicies));
+		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(1.0f, 1.0f, 0.0f)), indices));
 	}
 
 	void transformParameters(glm::vec3 pointPos1, glm::vec3 pointPos2) {
