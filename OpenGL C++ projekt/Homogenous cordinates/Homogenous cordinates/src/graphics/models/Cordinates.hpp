@@ -162,6 +162,7 @@ public:
 	void render(Shader shader) {
 		glm::mat4 model = glm::mat4(1.0f);
 
+			// Arrows
 		model = glm::scale(model, size);
 		shader.setMat4("model", model);
 		meshes[0].render(shader);
@@ -171,7 +172,8 @@ public:
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		shader.setMat4("model", model);
 		meshes[2].render(shader);
-
+			
+			// Letters
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.76f * size.x, 0.05f * size.y, 0.0f * size.z));
 		model = glm::scale(model, glm::vec3(0.1));

@@ -95,6 +95,7 @@ public:
 			 0.467f,  0.499f, 0.0f
 		};
 
+
 		std::vector<unsigned int> indices = {0, 1, 2, 1, 2, 3};	
 		std::vector<unsigned int> indices2 = { 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4 };
 
@@ -110,30 +111,34 @@ public:
 
 		meshes.push_back(Mesh(Vertex::genList(vertices_u, noVertices_u, glm::vec3(1.0f)), indices_u));
 		meshes.push_back(Mesh(Vertex::genList(vertices_v, noVertices_v, glm::vec3(1.0f)), indices_v));
+
 	}
 
-	void render(Shader shader) {
+	void render(Shader shaderTransparent) {
 		glm::mat4 model = glm::mat4(1.0f);
 
-		shader.setFloat("myAlpha", 1.0f);
+			// Letters
+		shaderTransparent.setFloat("myAlpha", 1.0f);	// set level of transparency
 		model = glm::translate(model, glm::vec3(0.04f * size.x, 0.52f * size.y, -1.0f * size.z));
 		model = glm::scale(model, glm::vec3(0.08f));
-		shader.setMat4("model", model);
-		meshes[3].render(shader);
+		shaderTransparent.setMat4("model", model);
+		meshes[3].render(shaderTransparent);
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.96f * size.x, -0.04f * size.y, -1.0f * size.z));
 		model = glm::scale(model, glm::vec3(0.08f));
-		shader.setMat4("model", model);
-		meshes[2].render(shader);
+		shaderTransparent.setMat4("model", model);
+		meshes[2].render(shaderTransparent);
 
+			// Cross
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, size);
-		shader.setMat4("model", model);
-		meshes[1].render(shader);
+		shaderTransparent.setMat4("model", model);
+		meshes[1].render(shaderTransparent);
 
-		shader.setFloat("myAlpha", alpha);
+			// Plane
+		shaderTransparent.setFloat("myAlpha", alpha);
 		glEnable(GL_BLEND);
-		meshes[0].render(shader);
+		meshes[0].render(shaderTransparent);
 		glDisable(GL_BLEND);
 	}
 };
