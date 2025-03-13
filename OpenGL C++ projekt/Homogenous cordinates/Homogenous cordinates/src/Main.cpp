@@ -71,8 +71,8 @@ int main() {
 	Cordinates cordinates(glm::vec3(2.0f));
 	ProjectivePlane plane(planeSize, 0.35f);
 	Arrow arrow(glm::vec3(0.5f));
-	Cube1 cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
-	Cube2 cube2(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.04f));
+	Cube1 cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.041f));
+	Cube2 cube2(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.041f));
 	Ray ray(glm::vec3(1.0f));
 
 

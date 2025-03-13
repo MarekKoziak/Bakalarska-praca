@@ -55,7 +55,7 @@ public:
 		};
 
 
-		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(1.0f, 0.0f, 0.0f)), indices));
+		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(1.0f, 0.0f, 0.804f)), indices));
 	}
 
 	void updatePosition() {

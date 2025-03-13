@@ -34,7 +34,7 @@ public:
 		
 		std::vector<unsigned int> indices = {0, 1, 2, 3, 1, 0, 4, 5, 6, 4, 6, 7};
 
-		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(1.0f, 1.0f, 0.0f)), indices));
+		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(0.451f, 0.035f, 0.588f)), indices));
 	}
 
 	void transformParameters(glm::vec3 pointPos1, glm::vec3 pointPos2) {

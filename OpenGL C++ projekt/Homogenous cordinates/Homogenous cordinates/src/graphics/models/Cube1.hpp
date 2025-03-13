@@ -54,7 +54,7 @@ public:
 			indices.insert(indices.end(), {i + 0,i + 1,i + 2,i + 2,i + 3,i + 0});
 		};
 
-		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(0.0f, 1.0f, 0.0f)), indices));
+		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices, glm::vec3(1.0f)), indices));
 	}
 
 	void updateposition() {

@@ -85,8 +85,8 @@ void MyGui::mainWindowSettings() {
 void MyGui::overlayWindowSettings() {
 	style->Colors[ImGuiCol_WindowBg].w = 0.5f;
 
-	ImGui::SetNextWindowPos(ImVec2(Screen::SCR_WIDTH - 120, Screen::SCR_HEIGHT - 60));
-	ImGui::SetNextWindowSize(ImVec2(120, 60));
+	ImGui::SetNextWindowPos(ImVec2(Screen::SCR_WIDTH - 90, Screen::SCR_HEIGHT - 60));
+	ImGui::SetNextWindowSize(ImVec2(90, 60));
 }
 
 void MyGui::mainLayout() {
@@ -117,10 +117,22 @@ void MyGui::overlayLayout() {
 
 	ImGui::Text("u =");
 	ImGui::SameLine();
-	ImGui::Text(std::to_string(x/w).c_str());
+	if (x == 0) {
+		ImGui::Text("0.000");
+	}
+	else {
+		std::string str = std::to_string(x / w);
+		ImGui::Text(str.length() > 5 ? str.erase(5).c_str() : str.c_str());
+	}
 	ImGui::Text("v =");
 	ImGui::SameLine();
-	ImGui::Text(std::to_string(y/w).c_str());
+	if (y == 0) {
+		ImGui::Text("0.000");
+	}
+	else {
+		std::string str = std::to_string(y / w);
+		ImGui::Text(str.length() > 5 ? str.erase(5).c_str() : str.c_str());
+	}
 
 	ImGui::PopStyleColor();
 	ImGui::PopFont();
