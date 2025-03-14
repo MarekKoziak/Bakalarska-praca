@@ -7,7 +7,9 @@
 
 class MyGui {
 public:
-	static float x, y, w, size;
+	static float x, y, w;
+	static float size;
+	static float mouseSnesitivity, cameraSpeed;
 
 	static void init(GLFWwindow* window);
 	static void cleanup();

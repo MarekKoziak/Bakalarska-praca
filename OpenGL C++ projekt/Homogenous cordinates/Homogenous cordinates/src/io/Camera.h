@@ -26,6 +26,7 @@ public:
 
 	float yaw;	
 	float pitch;
+	float sensitivity;
 	float speed;
 	float zoom;
 
@@ -34,6 +35,7 @@ public:
 	void updateCameraDirecion(double dx, double dy);
 	void updateCameraPos(CameraDirection direction, double dt);
 	void updateCameraZoom(double dy);
+	void reset();
 
 	float getZoom();
 

@@ -12,8 +12,8 @@ Camera::Camera(glm::vec3 position)
 }
 
 void Camera::updateCameraDirecion(double dx, double dy) {
-	yaw += dx;
-	pitch += dy;
+	yaw += dx * sensitivity / 2;
+	pitch += dy * sensitivity / 2;
 
 	if (pitch > 89.9f) {
 		pitch = 89.9f;
@@ -26,7 +26,7 @@ void Camera::updateCameraDirecion(double dx, double dy) {
 }
 
 void Camera::updateCameraPos(CameraDirection direction, double dt) {
-	float velocity = (float)dt * speed;
+	float velocity = (float)dt * speed * 5;
 
 	switch (direction) {
 	case CameraDirection::FORWARD:
@@ -60,6 +60,14 @@ void Camera::updateCameraZoom(double dy) {
 	else if (zoom > 45.0f) {
 		zoom = 45.0f;
 	}
+}
+
+void Camera::reset() {
+	cameraPos = glm::vec3(0.0f, 0.2f, 4.0f);
+	yaw = -90;
+	pitch = 0;
+	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	updateCameraVectors();
 }
 
 float Camera::getZoom() {

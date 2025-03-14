@@ -146,7 +146,7 @@ void processInput(double dt) {
 		screen.setShouldClose(true);
 	}
 
-	// move camera
+	// camera
 	if (Keyboard::key(GLFW_KEY_W)) {
 		camera.updateCameraPos(CameraDirection::FORWARD, dt);
 	}
@@ -177,4 +177,11 @@ void processInput(double dt) {
 	if (scrollDY != 0) {
 		camera.updateCameraZoom(scrollDY);
 	}
+
+	if (Keyboard::key(GLFW_KEY_R)) {
+		camera.reset();
+	}
+
+	camera.sensitivity = MyGui::mouseSnesitivity;
+	camera.speed = MyGui::cameraSpeed;
 }

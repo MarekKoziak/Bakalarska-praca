@@ -9,6 +9,8 @@ ImFont* MyGui::myFontH2 = nullptr;
 float MyGui::x = 0.0f;
 float MyGui::y = 0.0f;
 float MyGui::w = 1.0f;
+float MyGui::mouseSnesitivity = 1.0f;
+float MyGui::cameraSpeed = 1.0f;
 
 void MyGui::show() {
 	newFrame();
@@ -75,10 +77,10 @@ void MyGui::mainWindowSettings() {
 	style->Colors[ImGuiCol_WindowBg].w = 1;
 
 	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
-	ImGui::SetNextWindowSize(ImVec2(280, 200), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(320, 280), ImGuiCond_Once);
 	ImGui::SetNextWindowSizeConstraints(
-		ImVec2(200, 0),
-		ImVec2(350, FLT_MAX)
+		ImVec2(280, 0),
+		ImVec2(450, FLT_MAX)
 	);
 }
 
@@ -91,12 +93,34 @@ void MyGui::overlayWindowSettings() {
 
 void MyGui::mainLayout() {
 	ImGui::PushFont(myFontH1);
-		ImGui::Text("Nastavenia bodu");
+		ImGui::Text("Ovládanie");
+	ImGui::PopFont();
+	ImGui::PushFont(myFontH2);
+		ImGui::Separator();
+		if (ImGui::BeginTable("Table1", 2)) {
+				ImGui::TableSetupColumn("Static Column", ImGuiTableColumnFlags_WidthFixed, 130.0f);
+				ImGui::TableNextColumn();
+				ImGui::Text("Sensitivita myši");
+				ImGui::TableNextColumn();
+				ImGui::PushItemWidth(-FLT_MIN);
+				ImGui::SliderFloat("##mouse sens", &mouseSnesitivity, 0.0f, 5.0f, "%.2f");
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				ImGui::Text("Rýchlosť kamery");
+				ImGui::TableNextColumn();
+				ImGui::PushItemWidth(-FLT_MIN);
+				ImGui::SliderFloat("##cam speed", &cameraSpeed, 0.0f, 10.0f, "%.2f");
+			ImGui::EndTable();
+		}
+	ImGui::PopFont();
+
+	ImGui::PushFont(myFontH1);
+		ImGui::Text("Homogénny bod");
 	ImGui::PopFont();
 	ImGui::PushFont(myFontH2);
 		ImGui::Separator();
 		ImGui::Text("Pozícia: x, y, w");
-		if (ImGui::BeginTable("FullWidthTable", 3, ImGuiTableFlags_SizingStretchSame)) {
+		if (ImGui::BeginTable("Table2", 3, ImGuiTableFlags_SizingStretchSame)) {
 				ImGui::TableNextColumn();
 				ImGui::PushItemWidth(-FLT_MIN);
 				ImGui::DragFloat("##point x", &x, 0.01f);
@@ -113,7 +137,6 @@ void MyGui::mainLayout() {
 
 void MyGui::overlayLayout() {
 	ImGui::PushFont(myFontH2);
-	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0.9, 0, 1));
 
 	ImGui::Text("u =");
 	ImGui::SameLine();
@@ -134,6 +157,5 @@ void MyGui::overlayLayout() {
 		ImGui::Text(str.length() > 5 ? str.erase(5).c_str() : str.c_str());
 	}
 
-	ImGui::PopStyleColor();
 	ImGui::PopFont();
 }
