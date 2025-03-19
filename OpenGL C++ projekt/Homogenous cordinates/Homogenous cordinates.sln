@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Homogenous cordinates", "Ho
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGuiLib", "ImGuiLib\ImGuiLib.vcxproj", "{CF2890C0-1B5A-44A8-9352-215F400F66EB}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{332A2BA0-4952-40D6-B225-07F2E21874AB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -33,10 +31,6 @@ Global
 		{CF2890C0-1B5A-44A8-9352-215F400F66EB}.Release|x64.Build.0 = Release|x64
 		{CF2890C0-1B5A-44A8-9352-215F400F66EB}.Release|x86.ActiveCfg = Release|Win32
 		{CF2890C0-1B5A-44A8-9352-215F400F66EB}.Release|x86.Build.0 = Release|Win32
-		{332A2BA0-4952-40D6-B225-07F2E21874AB}.Debug|x64.ActiveCfg = Debug
-		{332A2BA0-4952-40D6-B225-07F2E21874AB}.Debug|x86.ActiveCfg = Debug
-		{332A2BA0-4952-40D6-B225-07F2E21874AB}.Release|x64.ActiveCfg = Release
-		{332A2BA0-4952-40D6-B225-07F2E21874AB}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
