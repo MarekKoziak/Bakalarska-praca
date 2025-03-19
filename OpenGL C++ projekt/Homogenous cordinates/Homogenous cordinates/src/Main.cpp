@@ -111,7 +111,7 @@ int main() {
 		cube1.updateposition();
 		cube2.updatePosition();
 		cube2.render(shader);
-		if (cube1.pos.x > plane.border.x || cube1.pos.x < -plane.border.x || cube1.pos.y > plane.border.y || cube1.pos.y < -plane.border.y) {
+		if (cube1.pos.x > plane.border.x || cube1.pos.x < -plane.border.x || cube1.pos.y > plane.border.y || cube1.pos.y < -plane.border.y) { // decides if arrow should be rendered or not
 			arrow.render(shader, cube2.pos, plane.border);
 		}else {
 			cube1.render(shader);
