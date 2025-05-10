@@ -31,10 +31,10 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\object.fs" />
-    <None Include="assets\object.vs" />
-    <None Include="assets\transparentObject.fs" />
-    <None Include="assets\transparentObject.vs" />
+    <None Include="assets\shaders\object.fs" />
+    <None Include="assets\shaders\object.vs" />
+    <None Include="assets\shaders\transparentObject.fs" />
+    <None Include="assets\shaders\transparentObject.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\models\Arrow.hpp" />
@@ -56,6 +56,9 @@
     <ProjectReference Include="..\ImGuiLib\ImGuiLib.vcxproj">
       <Project>{cf2890c0-1b5a-44a8-9352-215f400f66eb}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\arial.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -145,7 +148,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROJECT_DIR="$(ProjectDir)",_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Linking\include; $(SolutionDir)ImGuiLib\src; $(SolutionDir)ImGuiLib\src\backends</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>

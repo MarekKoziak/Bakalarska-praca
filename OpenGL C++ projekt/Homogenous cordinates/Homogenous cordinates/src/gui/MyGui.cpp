@@ -39,18 +39,18 @@ void MyGui::init(GLFWwindow* window) {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 
-	MyGui::customFontsLoading();
+	MyGui::loadCustomFonts();
 }
 
-void MyGui::customFontsLoading() {
+void MyGui::loadCustomFonts() {
 	static const ImWchar slovak_glyph_ranges[] = {
 	0x0020, 0x007E, 0x00A0, 0x00FF, 0x0100, 0x017F, 0
 	};
 
 	io->Fonts->AddFontDefault();
-	myFontH1 = io->Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\arial.ttf", 22.0f, nullptr, slovak_glyph_ranges);
+	myFontH1 = io->Fonts->AddFontFromFileTTF("assets/fonts/arial.ttf", 22.0f, nullptr, slovak_glyph_ranges);
 	IM_ASSERT(myFontH1 != NULL);
-	myFontH2 = io->Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\arial.ttf", 19.0f, nullptr, slovak_glyph_ranges);
+	myFontH2 = io->Fonts->AddFontFromFileTTF("assets/fonts/arial.ttf", 19.0f, nullptr, slovak_glyph_ranges);
 	IM_ASSERT(myFontH2 != NULL);
 }
 

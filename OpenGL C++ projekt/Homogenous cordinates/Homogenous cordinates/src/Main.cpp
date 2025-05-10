@@ -63,8 +63,8 @@ int main() {
 
 	screen.setParameters();
 
-	Shader shader("assets/object.vs", "assets/object.fs");
-	Shader shaderTransparency("assets/transparentObject.vs", "assets/transparentObject.fs");
+	Shader shader("assets/shaders/object.vs", "assets/shaders/object.fs");
+	Shader shaderTransparency("assets/shaders/transparentObject.vs", "assets/shaders/transparentObject.fs");
 
 	glm::vec3 planeSize(2.0f, 2.0f, 1.0f);
 

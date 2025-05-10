@@ -23,7 +23,7 @@ public:
 	static void mainWindowSettings();
 	static void overlayWindowSettings();
 
-	static void customFontsLoading();
+	static void loadCustomFonts();
 
 private:
 	static ImGuiIO* io;

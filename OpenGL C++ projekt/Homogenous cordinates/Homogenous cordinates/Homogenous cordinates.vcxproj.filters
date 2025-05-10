@@ -47,10 +47,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\object.vs" />
-    <None Include="assets\object.fs" />
-    <None Include="assets\transparentObject.vs" />
-    <None Include="assets\transparentObject.fs" />
+    <None Include="assets\shaders\object.vs" />
+    <None Include="assets\shaders\object.fs" />
+    <None Include="assets\shaders\transparentObject.vs" />
+    <None Include="assets\shaders\transparentObject.fs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\io\Keyboard.h">
@@ -95,5 +95,8 @@
     <ClInclude Include="src\graphics\models\Arrow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\arial.ttf" />
   </ItemGroup>
 </Project>
