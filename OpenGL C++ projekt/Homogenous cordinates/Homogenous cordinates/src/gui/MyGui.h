@@ -17,13 +17,19 @@ public:
 	static void newFrame();
 	static void mainLayout();
 	static void overlayLayout();
+	static void controlsLayout();
 	static void render();
 	static void show();
 
 	static void mainWindowSettings();
 	static void overlayWindowSettings();
+	static void controlsWindowSettings();
+
 
 	static void loadCustomFonts();
+
+	static bool mouseInput();
+	static bool keyboardInput();
 
 private:
 	static ImGuiIO* io;

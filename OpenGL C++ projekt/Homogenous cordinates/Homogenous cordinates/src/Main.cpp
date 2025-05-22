@@ -142,44 +142,46 @@ int main() {
 
 
 void processInput(double dt) {
-	if (Keyboard::key(GLFW_KEY_ESCAPE)) {
-		screen.setShouldClose(true);
-	}
+	if (!MyGui::keyboardInput()) {
+		// camera
+		if (Keyboard::key(GLFW_KEY_W)) {
+			camera.updateCameraPos(CameraDirection::FORWARD, dt);
+		}
+		if (Keyboard::key(GLFW_KEY_S)) {
+			camera.updateCameraPos(CameraDirection::BACKWARD, dt);
+		}
+		if (Keyboard::key(GLFW_KEY_A)) {
+			camera.updateCameraPos(CameraDirection::LEFT, dt);
+		}
+		if (Keyboard::key(GLFW_KEY_D)) {
+			camera.updateCameraPos(CameraDirection::RIGHT, dt);
+		}
+		if (Keyboard::key(GLFW_KEY_SPACE)) {
+			camera.updateCameraPos(CameraDirection::UP, dt);
+		}
+		if (Keyboard::key(GLFW_KEY_LEFT_SHIFT)) {
+			camera.updateCameraPos(CameraDirection::DOWN, dt);
+		}
 
-	// camera
-	if (Keyboard::key(GLFW_KEY_W)) {
-		camera.updateCameraPos(CameraDirection::FORWARD, dt);
-	}
-	if (Keyboard::key(GLFW_KEY_S)) {
-		camera.updateCameraPos(CameraDirection::BACKWARD, dt);
-	}
-	if (Keyboard::key(GLFW_KEY_A)) {
-		camera.updateCameraPos(CameraDirection::LEFT, dt);
-	}
-	if (Keyboard::key(GLFW_KEY_D)) {
-		camera.updateCameraPos(CameraDirection::RIGHT, dt);
-	}
-	if (Keyboard::key(GLFW_KEY_SPACE)) {
-		camera.updateCameraPos(CameraDirection::UP, dt);
-	}
-	if (Keyboard::key(GLFW_KEY_LEFT_SHIFT)) {
-		camera.updateCameraPos(CameraDirection::DOWN, dt);
-	}
 
-	if (Mouse::button(GLFW_MOUSE_BUTTON_2)) {
-		double dx = Mouse::getDX(), dy = Mouse::getDY();
-		if (dx != 0 || dy != 0) {
-			camera.updateCameraDirecion(dx, dy);
+
+		if (Keyboard::key(GLFW_KEY_R)) {
+			camera.reset();
 		}
 	}
 
-	double scrollDY = Mouse::getScrollDY();
-	if (scrollDY != 0) {
-		camera.updateCameraZoom(scrollDY);
-	}
+	if (!MyGui::mouseInput()) {		//checks if input is used by GUI, if yes input is ignored by application
+		if (Mouse::button(GLFW_MOUSE_BUTTON_2)) {
+			double dx = Mouse::getDX(), dy = Mouse::getDY();
+			if (dx != 0 || dy != 0) {
+				camera.updateCameraDirecion(dx, dy);
+			}
+		}
 
-	if (Keyboard::key(GLFW_KEY_R)) {
-		camera.reset();
+		double scrollDY = Mouse::getScrollDY();
+		if (scrollDY != 0) {
+			camera.updateCameraZoom(scrollDY);
+		}
 	}
 
 	camera.sensitivity = MyGui::mouseSnesitivity;

@@ -11,21 +11,31 @@ float MyGui::y = 0.0f;
 float MyGui::w = 1.0f;
 float MyGui::mouseSnesitivity = 1.0f;
 float MyGui::cameraSpeed = 1.0f;
+bool windowClose = false;
 
 void MyGui::show() {
 	newFrame();
 
-	// main GUI window
-	mainWindowSettings();
-	ImGui::Begin("Ovládacie prvky");
-	mainLayout();
-	ImGui::End();
+	if (!windowClose) {
+		// main GUI window
+		mainWindowSettings();
+		ImGui::Begin("Ovládacie prvky");
+		mainLayout();
+		ImGui::End();
 
-	// overlay window
-	overlayWindowSettings();
-	ImGui::Begin("Overlay", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
-	overlayLayout();
-	ImGui::End();
+		// overlay window
+		overlayWindowSettings();
+		ImGui::Begin("Overlay", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+		overlayLayout();
+		ImGui::End();
+	}
+
+	if (windowClose) {
+		controlsWindowSettings();
+		ImGui::Begin("Controls", &windowClose, ImGuiWindowFlags_NoCollapse);
+		controlsLayout();
+		ImGui::End();
+	}
 
 	render();
 }
@@ -91,9 +101,22 @@ void MyGui::overlayWindowSettings() {
 	ImGui::SetNextWindowSize(ImVec2(90, 60));
 }
 
+void MyGui::controlsWindowSettings() {
+	style->Colors[ImGuiCol_WindowBg].w = 1.0f;
+
+	ImGui::SetNextWindowPos(ImVec2(Screen::SCR_WIDTH/2 - 200, Screen::SCR_HEIGHT/2 - 100), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(400, 200), ImGuiCond_Once);
+	ImGui::SetNextWindowSizeConstraints(
+		ImVec2(400, 0),
+		ImVec2(400, FLT_MAX)
+	);
+}
+
 void MyGui::mainLayout() {
 	ImGui::PushFont(myFontH1);
 		ImGui::Text("Ovládanie");
+		ImGui::SetCursorPos(ImVec2(100, 22));
+		windowClose = ImGui::Button("?");
 	ImGui::PopFont();
 	ImGui::PushFont(myFontH2);
 		ImGui::Separator();
@@ -158,4 +181,35 @@ void MyGui::overlayLayout() {
 	}
 
 	ImGui::PopFont();
+}
+
+void MyGui::controlsLayout() {
+	ImGui::PushFont(myFontH2);
+	ImGui::BeginTable("Table2", 2);
+		ImGui::TableNextColumn();
+			ImGui::Text("W, A, S, D");
+			ImGui::Text("Shift");
+			ImGui::Text("Space");
+			ImGui::Text("Pravé tlačidlo myši");
+			ImGui::Text("R");
+			ImGui::Text("Koliesko myši hore");
+			ImGui::Text("Koliesko myši dole");
+		ImGui::TableNextColumn();
+			ImGui::Text("pohyb kamery");
+			ImGui::Text("pohyb nahor");
+			ImGui::Text("pohyb nadol");
+			ImGui::Text("otáčanie pohľadu");
+			ImGui::Text("reset pozície kamery");
+			ImGui::Text("priblíženie");
+			ImGui::Text("oddialenie");
+			ImGui::EndTable();
+	ImGui::PopFont();
+}
+
+bool MyGui::mouseInput() {
+	return io->WantCaptureMouse;
+}
+
+bool MyGui::keyboardInput() {
+	return io->WantCaptureKeyboard;
 }
