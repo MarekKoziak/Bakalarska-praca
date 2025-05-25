@@ -27,6 +27,24 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_30C2FC2E01A048C38BA3254C38FC09BB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4CE5460B6E5D4595946C7D4457AD2013"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5C1BF480B1C04D5081262B86226F4125"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_60363791244B400CBA0AE038A0735026"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -45,7 +63,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_976A1E28EC9C46ECA98E2FA8C8F8AC45"
+        "MsmKey" = "8:_7F7D7C264E7E4B2B83E5DB552145D6D9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8BDBE2EAFC854FD4B498EE4902B94E18"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -57,26 +81,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9AB2A8BC0F0C4DA7A93679D0894AA940"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_B0BB7B504B1989173808702392D46EF3"
         "OwnerKey" = "8:_60363791244B400CBA0AE038A0735026"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BE9E1A1195514501897A14A9CC82C270"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EDC28511F9124EB89E82079EBEFE6725"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -136,6 +142,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -198,6 +212,66 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_30C2FC2E01A048C38BA3254C38FC09BB"
+            {
+            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\shaders\\transparentObject.vs"
+            "TargetName" = "8:transparentObject.vs"
+            "Tag" = "8:"
+            "Folder" = "8:_231281E1576E4B55AA91F69DAA4A17C4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4CE5460B6E5D4595946C7D4457AD2013"
+            {
+            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\shaders\\transparentObject.fs"
+            "TargetName" = "8:transparentObject.fs"
+            "Tag" = "8:"
+            "Folder" = "8:_231281E1576E4B55AA91F69DAA4A17C4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5C1BF480B1C04D5081262B86226F4125"
+            {
+            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\shaders\\object.fs"
+            "TargetName" = "8:object.fs"
+            "Tag" = "8:"
+            "Folder" = "8:_231281E1576E4B55AA91F69DAA4A17C4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7A1D11F380865B9B85EC1A2EF6CAD959"
             {
             "SourcePath" = "8:IMM32.dll"
@@ -238,12 +312,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_976A1E28EC9C46ECA98E2FA8C8F8AC45"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7F7D7C264E7E4B2B83E5DB552145D6D9"
             {
-            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\object.fs"
-            "TargetName" = "8:object.fs"
+            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\fonts\\arial.ttf"
+            "TargetName" = "8:arial.ttf"
             "Tag" = "8:"
-            "Folder" = "8:_3419275809DD40CABFC40E8DA8BF6975"
+            "Folder" = "8:_12FD70E2E76F45ABA7F62F41D8BDB135"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8BDBE2EAFC854FD4B498EE4902B94E18"
+            {
+            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\shaders\\object.vs"
+            "TargetName" = "8:object.vs"
+            "Tag" = "8:"
+            "Folder" = "8:_231281E1576E4B55AA91F69DAA4A17C4"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -278,26 +372,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9AB2A8BC0F0C4DA7A93679D0894AA940"
-            {
-            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\transparentObject.vs"
-            "TargetName" = "8:transparentObject.vs"
-            "Tag" = "8:"
-            "Folder" = "8:_3419275809DD40CABFC40E8DA8BF6975"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B0BB7B504B1989173808702392D46EF3"
             {
             "SourcePath" = "8:ucrtbased.dll"
@@ -316,46 +390,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BE9E1A1195514501897A14A9CC82C270"
-            {
-            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\object.vs"
-            "TargetName" = "8:object.vs"
-            "Tag" = "8:"
-            "Folder" = "8:_3419275809DD40CABFC40E8DA8BF6975"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EDC28511F9124EB89E82079EBEFE6725"
-            {
-            "SourcePath" = "8:..\\Homogenous cordinates\\assets\\transparentObject.fs"
-            "TargetName" = "8:transparentObject.fs"
-            "Tag" = "8:"
-            "Folder" = "8:_3419275809DD40CABFC40E8DA8BF6975"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -394,6 +428,28 @@
                     "Property" = "8:_C20D5342730240ABADEC8473D85955E6"
                         "Folders"
                         {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_12FD70E2E76F45ABA7F62F41D8BDB135"
+                            {
+                            "Name" = "8:fonts"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_045D111E41A34189B621A18A079BD741"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_231281E1576E4B55AA91F69DAA4A17C4"
+                            {
+                            "Name" = "8:shaders"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_7C14B881181D4B128CF243FB3491E972"
+                                "Folders"
+                                {
+                                }
+                            }
                         }
                     }
                 }
@@ -426,7 +482,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Homogénne súradnice"
         "ProductCode" = "8:{5CE31FC7-25B9-4591-AC0A-1C45CEFE7444}"
-        "PackageCode" = "8:{BAA73E21-07C4-4F9F-B19C-9F9281124440}"
+        "PackageCode" = "8:{39E346F3-4283-4AC0-9F90-EBD7886DE7FF}"
         "UpgradeCode" = "8:{60284537-5CD6-4E34-8F14-F4A6AE02B219}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
